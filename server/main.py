@@ -1,7 +1,16 @@
 from fastapi import FastAPI
+from app.db import db
+from app.schemas.user import UserCreate
+from app.models.user import create_user
 
 app = FastAPI()
 
 @app.get("/")
-def read_root():
-    return {"message": "FastAPI is working!"}
+async def get_users():
+    users = await db["users"].find().to_list(10)
+    return {"users": users}
+
+@app.post("/users")
+async def register_user(user: UserCreate):
+    user_id = await create_user(user)
+    return {"message": "User created", "user_id": user_id}
