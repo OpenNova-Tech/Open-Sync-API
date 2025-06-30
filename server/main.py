@@ -5,10 +5,14 @@ from app.models.user import create_user
 
 app = FastAPI()
 
+def serialize_user(user):
+    user["_id"] = str(user["_id"])
+    return user
+
 @app.get("/")
 async def get_users():
     users = await db["users"].find().to_list(10)
-    return {"users": users}
+    return {"users": [serialize_user(user) for user in users]}
 
 @app.post("/users")
 async def register_user(user: UserCreate):
