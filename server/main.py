@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from app.db import db
-from app.schemas.user import UserCreate
-from app.models.user import create_user
+from app.models.user_model import UserCreate
+from app.controllers.user_controller import create_user
 
 app = FastAPI()
 

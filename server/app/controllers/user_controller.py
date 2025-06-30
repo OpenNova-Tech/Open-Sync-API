@@ -1,5 +1,5 @@
 from app.db import db
-from app.schemas.user import UserCreate
+from app.models.user_model import UserCreate
 from bson import ObjectId
 import hashlib
 
